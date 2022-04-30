@@ -10,9 +10,9 @@ Material:
   m_Name: trailtryyy
   m_Shader: {fileID: -6465566751694194690, guid: b9e7653cb76e60747b66611494f3a249, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -36,10 +36,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_223caad9a442434a805f1b0f73d2e2db: 77
+    - Vector1_223caad9a442434a805f1b0f73d2e2db: 50.1
     m_Colors:
     - Color_230409af3f764dbda588823e80d22856: {r: 1, g: 0, b: 0.2718983, a: 1}
     - Color_a1a0cd8058884ec0bf7e75bb7478171d: {r: 0, g: 0.03644657, b: 1, a: 1}
-    - Vector2_39e21fc4f3ab471da61e0d0eb819574f: {r: 0.1, g: 0, b: 0, a: 0}
+    - Vector2_39e21fc4f3ab471da61e0d0eb819574f: {r: 1, g: 1, b: 1, a: 1}
     - Vector2_a1d86160e6954bda881a3878ca6efe89: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

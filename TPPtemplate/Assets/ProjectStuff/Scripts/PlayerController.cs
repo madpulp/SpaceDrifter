@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     // public float movementSpeed;
 
-    [SerializeField] float boostSpeed=5f;
+    [SerializeField] float boostSpeed;
 
     // private Rigidbody crossHairRB;
     public PlayerInputActions playerInputActions;
@@ -49,16 +49,17 @@ public class PlayerController : MonoBehaviour
     float glide = 0f;
     float horizontalGlide = 0f;
     float torqueReset = 0.5f;
-    public float Boost = 2f;
+    
     //input Values
 
 
     private void Awake()
     {
         RB = GetComponent<Rigidbody>();
-       
+
         //   playerInputActions.Enable();
-         
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void update() 
@@ -165,13 +166,14 @@ public class PlayerController : MonoBehaviour
             RB.AddRelativeForce(Vector3.right * horizontalGlide * Time.deltaTime);
             horizontalGlide *= leftRightGlideReduction;
         }
-        //if (context.performed)
-       // {
-       //     RB.AddRelativeForce(Vector3.forward * Boost * Time.deltaTime, ForceMode.Impulse);
-       // }
+        if (Boost> 0.1f || Boost <-0.1f)
+        {
+            RB.AddRelativeForce(Vector3.forward * boostSpeed * Time.deltaTime, ForceMode.Impulse);
+        }
     }
 
     //Player Inputs
+    public float Boost;
     private float thrust1D;
     private float strafe1D;
     private float upDown1D;
@@ -200,23 +202,8 @@ public class PlayerController : MonoBehaviour
     }
     public void OnBoost(InputAction.CallbackContext context) 
     {
-        
-    
-      if (context.performed)
-       {
-           boosted = true;
-   
-          RB.AddForce(Vector3.forward *Boost* boostSpeed*Time.deltaTime, ForceMode.Impulse);
-  
 
-                 Debug.Log("Boosted" + context.phase);
-
-      }
-              else if (context.canceled)
-             {
-                 boosted = false;
-                  Debug.Log("BoostedCANCELED" + context.phase);
-              }
+        Boost = context.ReadValue<float>();
 
     }
 
