@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnergySphereScript : MonoBehaviour
 {
-
+    //trails are fun
     [SerializeField] Vector3 _Rotation;
     [SerializeField] private float _Rspeed;
-    // Update is called once per frame
+   
     void Update()
     {
         transform.Rotate(_Rotation * _Rspeed * Time.deltaTime);
