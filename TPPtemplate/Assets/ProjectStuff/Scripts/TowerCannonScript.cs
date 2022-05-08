@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class TowerCannonScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    
+    public Transform cannonTarget;
+    public float cannonTrackSpeed;
+
+    
     void Update()
     {
-        
+         Vector3 direction = cannonTarget.position - transform.position;
+         Quaternion rotation = Quaternion.LookRotation(direction);
+          transform.rotation = Quaternion.Lerp(transform.rotation,rotation,cannonTrackSpeed*Time.deltaTime) ;
     }
 }
