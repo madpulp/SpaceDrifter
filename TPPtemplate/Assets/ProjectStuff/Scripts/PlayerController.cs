@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float strafeThrust = 50f;
     [SerializeField]
-    private float upThrust = 50f;
+    private float updownSpeed = 50f;
+    
 
     [SerializeField, Range(0.001f, 0.999f)]
     private float thrustGlideReduction = 0.999f;
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour
         // Yaw
         if (pitchYaw.y>0.1f|| pitchYaw.y <-0.1f)
         {
-            playerBody.Rotate(new Vector3( pitchYaw.y * -sideTilt* AimSensitivity*verticalSens, 0, 0 ) * Time.deltaTime);
+            playerBody.Rotate(new Vector3( pitchYaw.y * -sideTilt * AimSensitivity*verticalSens, 0, 0 ) * Time.deltaTime);
             //RB.AddRelativeTorque(Vector3.left * Mathf.Clamp(pitchYaw.y, -1f, 1f) * pitchTorque * Time.deltaTime, ForceMode.Force);
         }
         else
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour
         if (pitchYaw.x > 0.1f || pitchYaw.x < -0.1f)
         {
             //pitchYaw.x=(-1,1)
-            playerBody.Rotate(new Vector3(0, pitchYaw.x * sideTilt*AimSensitivity*verticalSens, 0 )*horizontalSens * Time.deltaTime);
+            playerBody.Rotate(new Vector3(0, pitchYaw.x * sideTilt * AimSensitivity* horizontalSens, 0 ) * Time.deltaTime);
            //RB.AddRelativeTorque(Vector3.up * Mathf.Clamp(pitchYaw.x, -1f, 1f) * yawTorque * Time.deltaTime, ForceMode.Force);
         }
         else 
@@ -169,6 +170,12 @@ public class PlayerController : MonoBehaviour
         if (Boost> 0.1f || Boost <-0.1f)
         {
             RB.AddRelativeForce(Vector3.forward * boostSpeed * Time.deltaTime, ForceMode.Impulse);
+        }
+
+        //DodgeUpDown
+        if (upDown1D>0.1f || upDown1D< -0.1f)
+        {
+            RB.AddRelativeForce(Vector3.up * upDown1D * updownSpeed * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
