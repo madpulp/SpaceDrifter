@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     // public float movementSpeed;
 
     [SerializeField] float boostSpeed;
-
+    public ParticleSystem BoostEffect;
+    public GameObject boostFire;
+    public GameObject boostWorldEffect;
     // private Rigidbody crossHairRB;
     public PlayerInputActions playerInputActions;
 
@@ -57,10 +59,13 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         RB = GetComponent<Rigidbody>();
-
+        
         //   playerInputActions.Enable();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        
     }
 
     private void update() 
@@ -167,11 +172,26 @@ public class PlayerController : MonoBehaviour
             RB.AddRelativeForce(Vector3.right * horizontalGlide * Time.deltaTime);
             horizontalGlide *= leftRightGlideReduction;
         }
-        if (Boost> 0.1f || Boost <-0.1f)
+        if (Boost > 0.1f || Boost < -0.1f)
         {
             RB.AddRelativeForce(Vector3.forward * boostSpeed * Time.deltaTime, ForceMode.Impulse);
+            boosted = true;
+            boostFire.SetActive(true);
         }
+        else
+        {
+            boosted = false;
+            boostFire.SetActive(false);
+        }
+        if (boosted)
+        {
+            print("boooooosted");
+            //boostFire.SetActive(true);
+            BoostEffect.Play();
 
+        }
+        
+        
         //DodgeUpDown
         if (upDown1D>0.1f || upDown1D< -0.1f)
         {
@@ -216,7 +236,7 @@ public class PlayerController : MonoBehaviour
 
         
 
-
+    //follow object script
        // Vector3 direction = transform.position - crossHair.position;
        // Quaternion rotation = Quaternion.LookRotation(direction);
       //  transform.rotation = rotation;
@@ -224,65 +244,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    //public void Aim(InputAction.CallbackContext context) 
-    //{
-    //    Vector2 inputVector = context.ReadValue<Vector2>();
-   //     crossHairRB.AddForce(new Vector3(inputVector.x, inputVector.y, 0)*mouseSensitivityX*Time.deltaTime,ForceMode.Force);
-        
-  //  }
-    //public void Boost(InputAction.CallbackContext context)
-   // {
-    //    if (context.performed)
-    //    {
-    //        boosted = true;
-    //
-    //        RB.AddForce(Vector3.forward * boostSpeed*Time.deltaTime, ForceMode.Force);
-//
-            
-  //          Debug.Log("Boosted" + context.phase);
 
-  //      }
-  //      else if (context.canceled)
-   //     {
-   //         boosted = false;
-  //          Debug.Log("BoostedCANCELED" + context.phase);
-  //      }
-  //  }
-
-
-
-//public void Movement(InputAction.CallbackContext context)
- //   {
-    //    if (context.performed)
-   //     {
-
-      //      Vector2 inputVector = context.ReadValue<Vector2>();
-
-     //       RB.AddForce(new Vector3(inputVector.x, 0, inputVector.y) * movementSpeed * Time.deltaTime, ForceMode.Force);
-
-     //       transform.Rotate(new Vector3(0, 0, sideTilt * inputVector.x) * Time.deltaTime);
-     //       tilted = true;
-
-    //        Debug.Log("movement" + context.phase);
-    //    }
-     //   else if (context.canceled)
-     //   {
-    //        tilted = false;
-    //        transform.Rotate(Vector3.zero);
-   //     }
-  //  }
-
-    //public void AirRoll(InputAction.CallbackContext context) 
-    //{
-    //    if (context.performed)
-   //     {
-            
-
-    //        Vector2 inputVector = context.ReadValue<Vector2>();
-   //         playerBody.Rotate(  0, 0 ,inputVector.x * rotationSpeed);
-
-
-    //    }
 
    
 
